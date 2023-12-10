@@ -1,0 +1,22 @@
+.NewMoodPage input{
+  display: none;
+}
+
+.NewMoodPage form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.NewMoodPage label {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid white;
+}
+
+
+.NewMoodPage input[type="radio"]:checked + label {
+  /* Apply styles to the label (which contains the div) when the checkbox is checked */
+  border: 3px solid black;
+  border-radius: 10px; /* Adjust the border radius as needed */
+  
+}
