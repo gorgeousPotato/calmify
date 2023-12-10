@@ -1,0 +1,36 @@
+.NavBar {
+  /* background-image: url(../../../public/ivana-cajina-asuyh-_ZX54-unsplash.jpg);
+  background-size: cover;
+  background-position: center center; */
+  background-color: black;
+  padding: 1rem 3rem;
+  margin-top: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.NavBar .logout-btn {
+  border: none;
+  background-color: var(--primary);
+  color: rgb(113, 113, 113);
+}
+
+.NavBar .logout-btn:hover {
+  color: white;
+}
+
+.NavBar .logo {
+  font-family: "Rubik Mono One" ;
+  font-size: 2rem;
+  color: var(--tertiary) !important
+}
+
+.NavBar .nav-link:hover {
+  color: var(--tertiary) !important;
+  text-decoration: underline;
+}
+
+.NavBar .fa-bars {
+  color: white;
+}

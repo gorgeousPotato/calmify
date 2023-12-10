@@ -1,3 +1,3 @@
 export default function NewOrderPage() {
-  return (<h1>New Order Page</h1>);
+  return (<h1>New Mood Page</h1>);
 }
