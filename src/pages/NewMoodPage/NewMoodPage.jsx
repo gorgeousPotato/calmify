@@ -37,7 +37,7 @@ export default function NewMoodPage() {
     const newMood = mood;
     newMood.comment=comment;
     await moodsAPI.addMood(newMood);
-    navigate('/calendar');
+    navigate('/moods');
   }
   return (
     <div className="NewMoodPage">
