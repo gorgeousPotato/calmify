@@ -31,7 +31,7 @@ export default function NewMoodPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     const newMood = mood;
-    await moodsAPI.addMood(data);
+    await moodsAPI.addMood(newMood);
     // navigate('/calendar')
   }
   return (

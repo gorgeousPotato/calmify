@@ -4,4 +4,6 @@ const moodsCtrl = require('../../controllers/api/moods');
 
 
 //POST /api/moods
-router.post('/moods', moodsCtrl.create);
+router.post('/', moodsCtrl.create);
+
+module.exports = router;
