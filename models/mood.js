@@ -11,6 +11,7 @@ user: {
   type: Schema.Types.ObjectId,
   ref: "User",
 },
+comment: String,
 }, {
   timestamps: true,
 }

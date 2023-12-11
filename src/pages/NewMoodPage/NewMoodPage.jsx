@@ -6,6 +6,7 @@ import * as moodsAPI from "../../utilities/moods-api";
 
 export default function NewMoodPage() {
   const [mood, setMood] = useState('');
+  const [comment, setComment] = useState('');
   const navigate = useNavigate();
   function handleMoodChange(e) {
     const currEmotion = emotions.find((em) => (em.title === e.target.value));
@@ -15,6 +16,9 @@ export default function NewMoodPage() {
       title: currEmotion.title,
       description: currEmotion.descr,
     })
+  }
+  function handleComment(e) {
+    setComment(e.target.value);
   }
   const emotionsList = emotions.map(em => {
       return (
@@ -39,6 +43,7 @@ export default function NewMoodPage() {
       <h1>How do you feel today?</h1>
       <form onSubmit={handleSubmit}>
         {emotionsList}
+        <textarea value={comment} onChange={handleComment} rows="4" cols="50" placeholder="add a comment"/>
         <button type="submit">Next</button>
       </form>
     </div>
