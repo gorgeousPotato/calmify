@@ -7,6 +7,10 @@ mood: Number,
 emoji: String,
 title: String,
 description: String,
+user: {
+  type: Schema.Types.ObjectId,
+  ref: "User",
+},
 }, {
   timestamps: true,
 }
