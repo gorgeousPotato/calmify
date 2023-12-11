@@ -5,7 +5,8 @@ import { getUser } from "../../utilities/users-service"
 import AuthPage from "../AuthPage/AuthPage";
 import NavBar from "../../components/NavBar/NavBar";
 import NewMoodPage from "../NewMoodPage/NewMoodPage";
-import MoodsPage from "../MoodsPage/MoodsPage"
+import MoodsPage from "../MoodsPage/MoodsPage";
+import CalendarPage from '../CalendarPage/CalendarPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -17,6 +18,7 @@ export default function App() {
         <Routes>
           <Route path="/moods/new" element={<NewMoodPage />}/>
           <Route path="/moods" element={<MoodsPage />}/>
+          <Route path="/calendar" element={<CalendarPage />}/>
           <Route path="/*" element={<Navigate to="/moods/new" />} />
         </Routes>
       </>

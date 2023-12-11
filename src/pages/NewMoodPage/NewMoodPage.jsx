@@ -35,8 +35,9 @@ export default function NewMoodPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     const newMood = mood;
+    newMood.comment=comment;
     await moodsAPI.addMood(newMood);
-    // navigate('/calendar')
+    navigate('/calendar');
   }
   return (
     <div className="NewMoodPage">
