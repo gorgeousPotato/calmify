@@ -15,27 +15,34 @@ export default function CalendarPage({user}) {
     }
     getMoods(user);
   }, []);
-  
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const getMoodEmojiForDate = (date) => {
+    const matchingEntry = moodEntries.find((entry) => parseISO(entry.createdAt, 'yyyy-MM-dd') === parseISO(date, 'yyyy-MM-dd'));
+    return matchingEntry ? matchingEntry.mood : null;
+  };
+  const renderTileContent = ({ date, view }) => {
+    if (view === 'month') {
+      const moodEmoji = getMoodEmojiForDate(date);
+      return (
+        <div style={{ textAlign: 'center', fontSize: '1.2em' }}>
+          {moodEmoji && <span role="img" aria-label="Mood Emoji">{moodEmoji}</span>}
+        </div>
+      );
+    }
+    return null;
+  };
   return (
     <div className="CalendarPage">
       <div>
-        <Calendar />
+        <Calendar 
+        onChange={handleDateChange}
+        value={selectedDate}
+        tileContent={renderTileContent}/>
       </div>
-      {/* <div>
-        <p>Selected Date: {parseISO(selectedDate, 'MMMM dd, yyyy')}</p>
-      </div>
-      <div>
-        <h2>Mood Entries</h2>
-        <ul>
-          {moodEntries
-            .filter((entry) => format(entry.createdAt, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd'))
-            .map((entry, index) => (
-              <li key={index}>
-                {format(entry.createdAt, 'MMMM dd, yyyy')}: {entry.emoji}
-              </li>
-            ))}
-        </ul>
-      </div> */}
+      
     </div>
   );
 }
