@@ -1,13 +1,14 @@
 import {useState, useEffect} from "react";
-import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
-import { format, parseISO } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
+import Modal from 'react-modal';
 import * as moodsAPI from "../../utilities/moods-api";
 import "./CalendarPage.css";
 
 export default function CalendarPage({user}) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [moodEntries, setMoodEntries] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedMood, setSelectedMood] = useState(null);
   useEffect(function() {
     async function getMoods(user) {
       const moods = await moodsAPI.getMoodEntries(user);
@@ -15,34 +16,67 @@ export default function CalendarPage({user}) {
     }
     getMoods(user);
   }, []);
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const getMoodEmojiForDate = (date) => {
+    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+    return matchingEntry ? matchingEntry.emoji : null;
+  };
+  const openModal = (mood) => {
+    setSelectedMood(mood);
+    setModalIsOpen(true);
   };
 
-  const getMoodEmojiForDate = (date) => {
-    const matchingEntry = moodEntries.find((entry) => parseISO(entry.createdAt, 'yyyy-MM-dd') === parseISO(date, 'yyyy-MM-dd'));
-    return matchingEntry ? matchingEntry.mood : null;
+  const closeModal = () => {
+    setSelectedMood(null);
+    setModalIsOpen(false);
   };
-  const renderTileContent = ({ date, view }) => {
-    if (view === 'month') {
-      const moodEmoji = getMoodEmojiForDate(date);
-      return (
-        <div style={{ textAlign: 'center', fontSize: '1.2em' }}>
-          {moodEmoji && <span role="img" aria-label="Mood Emoji">{moodEmoji}</span>}
-        </div>
-      );
-    }
-    return null;
-  };
-  return (
-    <div className="CalendarPage">
+  const renderCalendar = () => {
+    const monthStart = startOfMonth(selectedDate);
+    const monthEnd = endOfMonth(selectedDate);
+    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    return (
       <div>
-        <Calendar 
-        onChange={handleDateChange}
-        value={selectedDate}
-        tileContent={renderTileContent}/>
+        <div>
+          <span>{format(monthStart, 'MMMM yyyy')}</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '8px' }}>
+          {weekdays.map((weekday) => (
+            <div key={weekday} style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              {weekday}
+            </div>
+          ))}
+          {daysInMonth.map((date) => (
+            <div
+              key={date.toISOString()}
+              style={{
+                padding: '8px',
+                textAlign: 'center',
+                background: date.getMonth() !== selectedDate.getMonth() ? '#eee' : '#fff',
+                position: 'relative',
+                cursor: 'pointer',
+              }}
+              onClick={() => openModal(getMoodEmojiForDate(date))}
+            >
+              <div>{format(date, 'd')}</div>
+              <span role="img" aria-label="Mood Emoji">
+                {getMoodEmojiForDate(date)}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
-      
+    );
+  }
+
+  return (
+    <div>
+      <div>{renderCalendar()}</div>
     </div>
   );
-}
+};
+
+
+
+
