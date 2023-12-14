@@ -1,3 +1,3 @@
-# MERN-Stack Infrastructure
+# CALMIFY
 
-Clone this repo to provide the starter code for a comprehensive MERN-Stack project including token-based authentication.
+Application to track your mood and to talk to an AI psychologist!
