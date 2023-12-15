@@ -20,8 +20,13 @@ export default function CalendarPage({user}) {
     const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
     return matchingEntry ? matchingEntry.emoji : null;
   };
-  const openModal = (mood) => {
-    setSelectedMood(mood);
+  const getMoodIdForDate = (date) => {
+    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+    return matchingEntry ? matchingEntry._id : null;
+  }
+  const openModal = (date) => {
+    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+    setSelectedMood(matchingEntry);
     setModalIsOpen(true);
   };
 
@@ -57,7 +62,7 @@ export default function CalendarPage({user}) {
                 position: 'relative',
                 cursor: 'pointer',
               }}
-              onClick={() => openModal(getMoodEmojiForDate(date))}
+              onClick={() => openModal(date)}
             >
               <div>{format(date, 'd')}</div>
               <span role="img" aria-label="Mood Emoji">
@@ -73,6 +78,34 @@ export default function CalendarPage({user}) {
   return (
     <div>
       <div>{renderCalendar()}</div>
+      <Modal 
+        isOpen={modalIsOpen} 
+        onRequestClose={closeModal}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 1000,
+          },
+          content: {
+            width: '400px', // Set the width of the modal
+            height: '300px', // Set the height of the modal
+            margin: 'auto', // Center the modal horizontally
+            position: 'absolute',
+            top: '50%', // Center the modal vertically
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          },
+        }}
+      >
+        {selectedMood && (
+          <div>
+            <h2>{selectedMood.title}</h2>
+            <p>{selectedMood.description}</p>
+            <p>Comment: {selectedMood.comment}</p>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
