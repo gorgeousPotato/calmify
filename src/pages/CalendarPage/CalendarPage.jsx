@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
 import Modal from 'react-modal';
+import MoodGraph from "../MoodGraph/MoodGraph";
 import * as moodsAPI from "../../utilities/moods-api";
 import "./CalendarPage.css";
 
@@ -78,6 +79,7 @@ export default function CalendarPage({user}) {
   return (
     <div>
       <div>{renderCalendar()}</div>
+      <div><MoodGraph moods={moodEntries}/></div>
       <Modal 
         isOpen={modalIsOpen} 
         onRequestClose={closeModal}
