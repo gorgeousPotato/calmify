@@ -27,7 +27,7 @@ export default function CalendarPage({user}) {
   }
   const openModal = (date) => {
     const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
-    setSelectedMood(matchingEntry);
+    matchingEntry ? setSelectedMood(matchingEntry) : setSelectedMood(null);
     setModalIsOpen(true);
   };
 
@@ -99,12 +99,16 @@ export default function CalendarPage({user}) {
           },
         }}
       >
-        {selectedMood && (
+        {selectedMood ? (
           <div>
             <h2>{selectedMood.title}</h2>
             <p>{selectedMood.description}</p>
             <p>Comment: {selectedMood.comment}</p>
             <button onClick={closeModal}>Close</button>
+          </div>
+        ) : (
+          <div>
+            <h2>no entries</h2>
           </div>
         )}
       </Modal>
