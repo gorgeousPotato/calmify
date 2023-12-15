@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import MoodGraph from "../MoodGraph/MoodGraph";
 import * as moodsAPI from "../../utilities/moods-api";
 import "./CalendarPage.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CalendarPage({user}) {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -18,15 +19,15 @@ export default function CalendarPage({user}) {
     getMoods(user);
   }, []);
   const getMoodEmojiForDate = (date) => {
-    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
     return matchingEntry ? matchingEntry.emoji : null;
   };
   const getMoodIdForDate = (date) => {
-    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
     return matchingEntry ? matchingEntry._id : null;
   }
   const openModal = (date) => {
-    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.createdAt), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
+    const matchingEntry = moodEntries.find((entry) => format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
     matchingEntry ? setSelectedMood(matchingEntry) : setSelectedMood(null);
     setModalIsOpen(true);
   };
@@ -41,7 +42,7 @@ export default function CalendarPage({user}) {
     const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
+  
     return (
       <div>
         <div>
@@ -49,7 +50,7 @@ export default function CalendarPage({user}) {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '8px' }}>
           {weekdays.map((weekday) => (
-            <div key={weekday} style={{ textAlign: 'center', fontWeight: 'bold' }}>
+            <div key={weekday} style={{ textAlign: 'center', fontWeight: 'bold' }} >
               {weekday}
             </div>
           ))}
@@ -75,7 +76,10 @@ export default function CalendarPage({user}) {
       </div>
     );
   }
-
+  const navigate = useNavigate();
+  function handleAddMood(date) {
+    navigate(`/moods/add/${date}`)
+  }
   return (
     <div>
       <div>{renderCalendar()}</div>
@@ -109,6 +113,7 @@ export default function CalendarPage({user}) {
         ) : (
           <div>
             <h2>no entries</h2>
+            <button onClick={() => handleAddMood()}>Add mood</button>
           </div>
         )}
       </Modal>

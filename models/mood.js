@@ -12,6 +12,7 @@ user: {
   ref: "User",
 },
 comment: String,
+date: Date,
 }, {
   timestamps: true,
 }
