@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./NewMoodPage.css";
+import { useParams } from 'react-router-dom';
+import "./AddMoodPage.css";
 import {emotions} from "../../emotions";
 import * as moodsAPI from "../../utilities/moods-api";
 
@@ -39,9 +40,13 @@ export default function NewMoodPage() {
     await moodsAPI.addMood(newMood);
     navigate('/moods');
   }
+
+  // const { dateParam } = useParams();
+  // const date = new Date(dateParam);
+  // const formattedDate = date.toISOString();
   return (
     <div className="NewMoodPage">
-      <h1>How do you feel today?</h1>
+      <h1>How do you feel on </h1>
       <form onSubmit={handleSubmit}>
         {emotionsList}
         <textarea value={comment} onChange={handleComment} rows="4" cols="50" placeholder="add a comment"/>

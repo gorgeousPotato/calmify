@@ -7,6 +7,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import NewMoodPage from "../NewMoodPage/NewMoodPage";
 import MoodsPage from "../MoodsPage/MoodsPage";
 import CalendarPage from '../CalendarPage/CalendarPage';
+import AddMoodPage from "../AddMoodPage/AddMoodPage";
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -17,6 +18,7 @@ export default function App() {
         <NavBar user={user} setUser={setUser}/>
         <Routes>
           <Route path="/moods/new" element={<NewMoodPage />}/>
+          <Route path={`/moods/add/:date`} element={<AddMoodPage />}/>
           <Route path="/moods" element={<CalendarPage />}/>
           <Route path="/*" element={<Navigate to="/moods/new" />} />
         </Routes>

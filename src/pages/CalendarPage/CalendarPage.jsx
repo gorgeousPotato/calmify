@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CalendarPage({user}) {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [dateForAddingMood, setDateForAddingMood] = useState(null);
   const [moodEntries, setMoodEntries] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedMood, setSelectedMood] = useState(null);
@@ -30,6 +31,7 @@ export default function CalendarPage({user}) {
     const matchingEntry = moodEntries.find((entry) => format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
     matchingEntry ? setSelectedMood(matchingEntry) : setSelectedMood(null);
     setModalIsOpen(true);
+    setDateForAddingMood(date.toISOString());
   };
 
   const closeModal = () => {
@@ -113,7 +115,7 @@ export default function CalendarPage({user}) {
         ) : (
           <div>
             <h2>no entries</h2>
-            <button onClick={() => handleAddMood()}>Add mood</button>
+            <button onClick={() => handleAddMood(dateForAddingMood)}>Add mood</button>
           </div>
         )}
       </Modal>
