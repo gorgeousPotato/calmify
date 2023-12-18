@@ -18,7 +18,7 @@ export default function App() {
         <NavBar user={user} setUser={setUser}/>
         <Routes>
           <Route path="/moods/new" element={<NewMoodPage />}/>
-          <Route path={`/moods/add/:date`} element={<AddMoodPage />}/>
+          <Route path={`/moods/:date/add`} element={<AddMoodPage />}/>
           <Route path="/moods" element={<CalendarPage />}/>
           <Route path="/*" element={<Navigate to="/moods/new" />} />
         </Routes>

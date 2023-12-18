@@ -80,7 +80,7 @@ export default function CalendarPage({user}) {
   }
   const navigate = useNavigate();
   function handleAddMood(date) {
-    navigate(`/moods/add/${date}`)
+    navigate(`/moods/${date}/add`)
   }
   return (
     <div>

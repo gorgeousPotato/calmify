@@ -41,12 +41,12 @@ export default function NewMoodPage() {
     navigate('/moods');
   }
 
-  // const { dateParam } = useParams();
-  // const date = new Date(dateParam);
-  // const formattedDate = date.toISOString();
+  const { dateParam } = useParams();
+  // const dateObject = new Date(dateParam);
+
   return (
     <div className="NewMoodPage">
-      <h1>How do you feel on </h1>
+      <h1>How do you feel on {dateParam}</h1>
       <form onSubmit={handleSubmit}>
         {emotionsList}
         <textarea value={comment} onChange={handleComment} rows="4" cols="50" placeholder="add a comment"/>
