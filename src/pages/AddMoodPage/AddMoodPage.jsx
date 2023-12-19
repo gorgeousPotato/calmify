@@ -41,12 +41,19 @@ export default function NewMoodPage() {
     navigate('/moods');
   }
 
-  const { dateParam } = useParams();
-  // const dateObject = new Date(dateParam);
+  const { date } = useParams();
+
+  function beautifyDate(date) {
+    const day = date.substring(8);
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = months[date.substring(0,1)];
+
+    return `${day} ${month}`;
+  }
 
   return (
     <div className="NewMoodPage">
-      <h1>How do you feel on {dateParam}</h1>
+      <h1>How do you feel on {beautifyDate(date)}</h1>
       <form onSubmit={handleSubmit}>
         {emotionsList}
         <textarea value={comment} onChange={handleComment} rows="4" cols="50" placeholder="add a comment"/>

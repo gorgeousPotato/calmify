@@ -31,7 +31,7 @@ export default function CalendarPage({user}) {
     const matchingEntry = moodEntries.find((entry) => format(new Date(entry.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'));
     matchingEntry ? setSelectedMood(matchingEntry) : setSelectedMood(null);
     setModalIsOpen(true);
-    setDateForAddingMood(date.toISOString());
+    setDateForAddingMood(date.toISOString().substring(0,9));
   };
 
   const closeModal = () => {
