@@ -44,11 +44,13 @@ export default function NewMoodPage() {
   const { date } = useParams();
 
   function beautifyDate(date) {
-    const day = date.substring(8);
+    const nums = date.split("-");
+    const day = nums[2];
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const month = months[date.substring(0,1)];
+    const month = months[nums[1]-1];
+    const year = nums[0];
 
-    return `${day} ${month}`;
+    return `${day} ${month} ${year}`;
   }
 
   return (
