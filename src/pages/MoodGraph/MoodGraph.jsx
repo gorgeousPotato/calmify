@@ -11,7 +11,7 @@ export default function MoodGraph({moods}) {
     const moodNumbersByDay = new Array(31).fill(0);
 
     moods.forEach((entry) => {
-      const dayOfMonth = new Date(entry.createdAt).getDate();
+      const dayOfMonth = new Date(entry.date).getDate();
       moodNumbersByDay[dayOfMonth - 1] = entry.mood;
     });
 

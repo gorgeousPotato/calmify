@@ -8,7 +8,7 @@ module.exports = {
 async function create(req,res) {
   try {
     req.body.user = req.user;
-    req.body.date = Date.now();
+    // req.body.date = Date.now();
     const mood = await Mood.create(req.body);
     res.json(mood);
   } catch(err) {

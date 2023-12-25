@@ -36,6 +36,7 @@ export default function NewMoodPage() {
     e.preventDefault();
     const newMood = mood;
     newMood.comment=comment;
+    newMood.date = Date.now();
     await moodsAPI.addMood(newMood);
     navigate('/moods');
   }

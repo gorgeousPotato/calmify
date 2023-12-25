@@ -32,16 +32,19 @@ export default function NewMoodPage() {
         </label>
       </div>
       );
-  })
+    })
+  
+  const { date } = useParams();
+
   async function handleSubmit(e) {
     e.preventDefault();
     const newMood = mood;
     newMood.comment=comment;
+    newMood.date=new Date(date)
     await moodsAPI.addMood(newMood);
     navigate('/moods');
   }
 
-  const { date } = useParams();
 
   function beautifyDate(date) {
     const nums = date.split("-");
@@ -59,7 +62,7 @@ export default function NewMoodPage() {
       <form onSubmit={handleSubmit}>
         {emotionsList}
         <textarea value={comment} onChange={handleComment} rows="4" cols="50" placeholder="add a comment"/>
-        <button type="submit">Next</button>
+        <button type="submit">Save</button>
       </form>
     </div>
   );
