@@ -40,7 +40,11 @@ export default function NewMoodPage() {
     e.preventDefault();
     const newMood = mood;
     newMood.comment=comment;
-    newMood.date=new Date(date)
+    const nums = date.split("-");
+    const day = nums[2];
+    const month = nums[1]-1;
+    const year = nums[0];
+    newMood.date=new Date(year, month, day);
     await moodsAPI.addMood(newMood);
     navigate('/moods');
   }
